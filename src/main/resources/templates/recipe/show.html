@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Recipe</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+</head>
+<body>
+<!-- This is for Intellisense to detect the proper object type for recipe in the thymeleaf expressions -->
+<!-- /*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/ -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="margin-top: 20px;">
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">Categories</div>
+                        <div class="col-md-9">
+                            <ul>
+                                <li th:remove="all">Category one</li>
+                                <li th:remove="all">Category two</li>
+                                <li th:each="category : ${recipe.categories}" th:text="${category.description}">Category three</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Preparation time:</div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.prepTime} + ' min'">30 mins</p>
+                        </div>
+                        <div class="col-md-3">Difficulty:</div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.difficulty}">Easy</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Cook time:</div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.cookTime + ' min'}">30 mins</p>
+                        </div>
+                        <div class="col-md-3">Servings:</div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.servings}">4</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Source:</div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.source}">the source</p>
+                        </div>
+                        <div class="col-md-3">URL:</div>
+                        <div class="col-md-3">
+                            <p th:text="${recipe.url}">http://www.example.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="card-title">Ingredients</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul>
+                                <li th:remove="all">1 Cup of milk</li>
+                                <li th:remove="all">1 Teaspoon of chocolate</li>
+                                <li th:each="ingredient : ${recipe.ingredients}"
+                                    th:text="${(ingredient.amount +
+                                    ' ' + ingredient.uom.description +
+                                    ' - ' + ingredient.description)}">1 Teaspoon of sugar</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="card-title">Directions</h4>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p th:text="${recipe.getDirections()}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
+                                quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+                                nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+                                justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.
+                                Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
+                                porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
+                                viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.
+                                Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
+                                ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
+                                eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
+                                ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="card-title">Notes</h4>
+                </div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p th:text="${recipe.getNotes().getRecipeNotes()}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
+                                nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
+                                quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
+                                nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+                                justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus.
+                                Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula,
+                                porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in,
+                                viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet.
+                                Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur
+                                ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus
+                                eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed
+                                ipsum.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"
+        th:src="@{/webjars/bootstrap/4.0.0-beta/js/boostrap.min.js}"></script>
+
+</body>
+</html>
