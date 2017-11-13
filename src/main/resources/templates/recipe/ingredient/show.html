@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Recipes Homepage</title>
+    <title>Show Recipe</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,33 +11,34 @@
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
 </head>
 <body>
-<!--/*@thymesVar id="recipes" type="java.util.List"*/-->
-<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
+<!-- This is for Intellisense to detect the proper object type for recipe in the thymeleaf expressions -->
+<!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3"></div>
-        <div class="col-md-6" style="margin-top: 20px;">
+        <div class="col-md-6 mx-auto" style="margin-top: 20px;">
             <div class="card">
+                <div class="card-header bg-warning text-white">
+                    <h4 class="card-title">Ingredients</h4>
+                </div>
                 <div class="card-body">
-                    <h4 class="card-title">My Recipes!</h4>
-                    <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
+                    <div class="table-responsive">
                         <table class="table table-hover">
-                            <thead class="bg-warning text-white">
-                            <tr>
-                                <th>ID</th>
-                                <th>Description</th>
-                                <th>View</th>
-                                <th>Update</th>
-                                <th>Delete</th>
-                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Description</th>
+                                </tr>
                             </thead>
-                            <tr th:each="recipe : ${recipes}">
-                                <!-- /*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/ -->
-                                <td th:text="${recipe.id}">ID</td>
-                                <td th:text="${recipe.description}">Recipe Description</td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/show'}">View</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">Update</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/delete'}">Delete</a></td>
+                            <tr th:remove="all">
+                                <td>123</td>
+                                <td>Tasty Goodness</td>
+                                <td><a href="#">View</a></td>
+                                <td><a href="#">Update</a></td>
+                                <td><a href="#">Delete</a></td>
+                            </tr>
+                            <tr>
+                                <td th:text="${ingredient.id}">123</td>
+                                <td th:text="${ingredient.amount} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.description}">Tasty Goodness</td>
                             </tr>
                         </table>
                     </div>
@@ -46,7 +47,6 @@
         </div>
     </div>
 </div>
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
