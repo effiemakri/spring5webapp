@@ -4,6 +4,7 @@ import guru.springframework.commands.RecipeCommand;
 import guru.springframework.converters.RecipeCommandToRecipe;
 import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
+import guru.springframework.exceptions.NotFoundException;
 import guru.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -39,10 +40,16 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long l) {
+
+        // check that the ID that was passed in here is in fact of type Long.
+        if (!(l instanceof Long)) {
+            throw new NumberFormatException("Recipe ID provided was of invalid type: " + l);
+        }
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe not found!");
+            // throw new RuntimeException("Recipe not found!");
+            throw new NotFoundException("Recipe not found. For ID value: " + l);
         }
         return recipeOptional.get();
     }

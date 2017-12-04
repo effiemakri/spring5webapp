@@ -18,17 +18,29 @@
         <div class="col-md-6 mx-auto" style="margin-top: 20px;">
             <div class="card" style="margin-top: 20px;">
                 <div class="card-header bg-warning text-white">
+                    <div class="row">
+                        <div class="col-md-9">
                     <h4 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h4>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="btn btn-warning text-white" href="#"
+                               th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button">Change Image</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">Categories</div>
-                        <div class="col-md-9">
+                        <div class="col-md-3">
                             <ul>
                                 <li th:remove="all">Category one</li>
                                 <li th:remove="all">Category two</li>
                                 <li th:each="category : ${recipe.categories}" th:text="${category.description}">Category three</li>
                             </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="../../static/images/guacamole400x400WithX.jpg"
+                                 th:src="@{'/recipe/' + ${recipe.id} + '/recipeimage'}" width="200" height="200">
                         </div>
                     </div>
                     <div class="row">
