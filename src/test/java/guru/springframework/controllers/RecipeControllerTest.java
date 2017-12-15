@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -33,7 +34,9 @@ public class RecipeControllerTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
         controller = new RecipeController(recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @Test
@@ -68,7 +71,10 @@ public class RecipeControllerTest {
         mockMvc.perform(post("/recipe")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", "")
-                .param("description", "some string"))
+                .param("description", "some string")
+                .param("directions", "some directions")
+                //.param("cookTime", "3000")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/show"));
     }
@@ -104,7 +110,7 @@ public class RecipeControllerTest {
                 .andExpect(view().name("404error"));
     }
 
- @Test
+    @Test
     public void testGetRecipeNumberFormatException() throws Exception {
 
         // when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
@@ -113,6 +119,4 @@ public class RecipeControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));
     }
-
-
 }

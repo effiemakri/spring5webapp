@@ -45,14 +45,17 @@ public class ImageController {
 
         RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(id));
 
-        byte[] byteArray = new byte[recipeCommand.getImage().length];
-        int i = 0;
-        for (Byte wrappedByte : recipeCommand.getImage()) {
-            byteArray[i++] = wrappedByte;   // auto unboxing
-        }
+        if (recipeCommand.getImage() != null) {
 
-        response.setContentType("image/jpeg");
-        InputStream is = new ByteArrayInputStream(byteArray);
-        IOUtils.copy(is, response.getOutputStream());
+            byte[] byteArray = new byte[recipeCommand.getImage().length];
+            int i = 0;
+            for (Byte wrappedByte : recipeCommand.getImage()) {
+                byteArray[i++] = wrappedByte;   // auto unboxing
+            }
+
+            response.setContentType("image/jpeg");
+            InputStream is = new ByteArrayInputStream(byteArray);
+            IOUtils.copy(is, response.getOutputStream());
+        }
     }
 }

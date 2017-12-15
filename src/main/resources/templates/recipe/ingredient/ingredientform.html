@@ -19,7 +19,7 @@
             <!-- pass in a recipe command object to property "recipe" -->
             <!-- post to /recipe - thymeleaf will parse it at runtime and build the full URL for us -->
             <!--/*@thymesVar id="ingredient" type="guru.springframework.commands.IngredientCommand"*/-->
-            <form th:object="${ingredient}" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'}">
+            <form th:object="${ingredient}" th:action="@{'/recipe/' + ${ingredient.getRecipeId()} + '/ingredient'}" method="post">
                 <!-- we need to pass in the ID value, so we know what we are editing -->
                 <input type="hidden" th:field="*{id}"/>
                 <div class="container-fluid">
